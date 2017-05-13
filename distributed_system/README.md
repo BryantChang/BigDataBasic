@@ -31,6 +31,17 @@
 3、扩展性不强，Task Tracker向Job Tracker注册过程中可能会超出Job Tracker内存上限
 ```
 
+#### YARN
+
+![image](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/imgs/yarn.png)
+
+
+
+
+
+
+
+
 
 
 
