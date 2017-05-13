@@ -14,4 +14,4 @@
 
 #### Hadoop MR
 
-![image](https://github.com/BryantChang/BigDataBasic/blob/distributed_system/imgs/hadoop_mr.png)
+![image](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/imgs/hadoop_mr.png)
