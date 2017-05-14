@@ -25,7 +25,7 @@
 * 电源故障（Rack级别，机房断电）
     - 保证数据及时落盘
 
-![Memory Buffer](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_storage/imgs/memory_cache.png)
+![Memory Buffer](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_storage/imgs/memcache.png)
 
 * 数据错误
     - 原因：
@@ -38,7 +38,7 @@
 * 系统异常
     - Linux时间
 
-![Time Synchronous](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_storage/imgs/tongbu.png)
+![Time Synchronous](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_storage/imgs/timestamp.png)
 
 
 
