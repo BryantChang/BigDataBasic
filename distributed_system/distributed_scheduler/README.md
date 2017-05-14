@@ -1,4 +1,4 @@
-## 第一部分：分布式调度系统
+## 第一部分：分布式调度
 
 ### 1、主要问题：
 
@@ -12,7 +12,7 @@
 
 #### Hadoop MR
 
-![image](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/imgs/hadoop_mr.png)
+![image](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_scheduler/imgs/hadoop_mr.png)
 
 ##### 资源申请流程
 
@@ -31,7 +31,7 @@
 
 #### YARN
 
-![image](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/imgs/yarn.png)
+![image](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_scheduler/imgs/yarn.png)
 
 ##### 资源申请流程
 
@@ -61,7 +61,7 @@
 
 #### Mesos(Twitter)
 
-![image](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/imgs/mesos.png)
+![image](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_scheduler/imgs/mesos.png)
 
 ##### 资源申请流程
 
@@ -81,7 +81,7 @@
 
 4、Ali Fuxi
 
-![image](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/imgs/fuxi.png)
+![image](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_scheduler/imgs/fuxi.png)
 
 ##### 资源申请流程
 
@@ -164,7 +164,7 @@
 
 * 两种状态Soft State(可通过其他组件推出) Hard State(用户初始提交的任务配置信息)
 
-![image](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/imgs/failover.png)
+![image](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_scheduler/imgs/failover.png)
  
 
 ### 5、Scale Out
