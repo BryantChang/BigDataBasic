@@ -70,7 +70,59 @@
 
 ![HDFS](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_storage/imgs/hdfs_architecture.png)
 
+* NameNode是单点
+* client与NameNode交互负责拿到操作信息和meta信息
+* Client与DataNode交互真正负责数据的读写
 
+#### Pangu
+
+* 使用Pasox协议实现PanguMaster,只要多余一般的节点工作就可以工作，去掉了单点问题
+* 全链路Checksum
+* 异常恢复机制
+* 回收站防止误操作
+* 数据聚族
+* 流量控制与慢盘规避
+* 混合存储
+* 审计功能
+
+
+### 4、分布式存储系统设计要点
+
+* 读写流程
+* Qos服务质量
+* checksum 保证数据的正确性
+* replication
+* rebalance
+* Garbage Collection(异步删除，基于版本)
+* Erasure Coding(节约存储空间)
+
+### 5、写入流程
+
+* 链式写入：高吞吐，高延迟
+
+![Link Write](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_storage/imgs/link_write.png)
+
+* 场景：从外部导入数据到集群内部
+* 弊端：3段的网络延迟
+
+
+* 主从写入：低吞吐，低延迟
+
+![Master Slave](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_storage/imgs/master_slave.png)
+
+* 使用辐射发包方式，导致Primary网络最高利用率为50%
+* 不适合流量较高的应用
+* 适合低延迟的应用
+
+* Seal and new
+
+![Seal and New](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_storage/imgs/seal_and_new.png)
+
+### 6、读取流程
+
+* 一般读流程
+
+![Read Common](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_storage/imgs/read_common.png)
 
 
 
