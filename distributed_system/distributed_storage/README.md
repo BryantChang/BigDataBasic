@@ -124,14 +124,104 @@
 
 ![Read Common](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_storage/imgs/read_common.png)
 
+* Backup Read(规避慢节点)
+
+![Backup Read](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_storage/imgs/backup_read.png)
+
+* 核心点：
+    - 同时发送多个请求
+    - 接收到一个节点发送成功后向其他节点发送cancel，结束正在执行的I/O请求
+* 不足：
+    - 会出现过多没用的I/O请求
+
+* 优化方法：
+    - 当Client向Master请求数据位置的节点时，Master返回CS列表时同时会将每个CS的期望延迟返回给Client，Client先从中选取最小的一个进行请求，当超过期望值（该节点是热点）时选择次小的CS进行请求，并将实际的等待时间更新到列表中返回给Master.
+* 好处：
+    - 有效的发现获取当前数据最快的节点
+    - 有效的规避了热点（全部）
+
+### 7、QoS
+
+* 对不同用户的请求进行计数
+* 限制最高的请求个数
 
 
+### 8、Checksum
+
+* 对数据进行切块，每块的数据都求crc，分包传送。
+* crc与数据同一个文件
+    - 数据访问快
+    - 校验准确性会受影响
+
+### 9、Replication
+
+* 及时发现坏盘，对其上数据进行复制
+* 每隔15s从节点会向Master汇报心跳
+* 在复制时充分利用多台机器的网络带宽
+* 流量控制
+* 按照优先级复制（越接近丢失的数据优先级越高）
+
+### 10、Rebalance（一种特殊情况下的Replication）
+
+* 产生原因：
+    - 新加机器
+    - 本身不均衡
+* 做法：
+    - 充分利用多台机器的带宽
+    - 复制存在优先级（优先级小于复制）
+    - 流量控制
+
+### 11、Garbage Collection
+
+* 场景：
+    - 数据被删除（异步删除，先删meta，异步删数据）
+    - 写失败，会出现脏数据留在磁盘上
+    - 机器宕机
+
+* 触发机制：
+    - 某个数据在Master上没有对应的meta
+    - 某个数据的版本比当前Master中的meta中该数据的实际版本
+    - 某数据的拷贝份数多于meta记录的 
 
 
+### 12、Erasure Coding 数据压缩（用更少的空间存储更多的数据副本）
+
+* m份数据
+* 计算出n份数据
+* 最终数据存储了m+n份
+* 允许n份同时丢失
+
+![Erasure Coding](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_storage/imgs/ensurecoding.png)
 
 
+### 13、Meta服务高可用
 
+* 一般实现方法：
+    - 多个备份互为热备，在故障时可以快速切换
+    - 多个备份保证状态一致
 
+* 主从模式：
+    - 一个为主服务，其他节点为从节点
+    - 通过分布式锁互斥技术进行主节点选取
+    - 通过共享存储实现主从之间的数据一致性（主节点通过日志持久化到共享存储）
+    - 特点：
+        + 简单
+        + 所需的其他模块需要依赖于其他模块（分布式锁服务，共享存储）
+* 依据分布式协议：
+    - paxos，raft等分布式协商协议
+    - 独立自包含
+
+* 典型分布式存储的做法
+    - HDFS：
+        + 主从模式
+        + 使用zk提供分布式锁服务
+        + 使用NFS提供共享存储
+    - Ceph:
+        + 主从模式
+        + 使用天然的osd作为共享存储
+        + 通过节点间的心跳维持代替分布式锁服务
+    - Pangu:
+        + 基于分布式协议Raft
 
 
 
