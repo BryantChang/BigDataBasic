@@ -223,7 +223,12 @@
     - Pangu:
         + 基于分布式协议Raft
 
+* Raft协议详解
+    - 其中一个elector向其他节点发送propose请求
+    - 接收到请求的节点进入锁定状态，不再接受其他propose请求
+    - 发送请求方升级自己为primary，其他节点降级为secondary,primary节点与secondary节点间维持心跳
 
+![Common Election](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_storage/imgs/common_election.png)
 
 
 
