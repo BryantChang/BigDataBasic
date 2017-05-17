@@ -231,11 +231,35 @@
 
 ![Common Election](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_storage/imgs/common_election.png)
 
-    - primary节点异常
-        + 当secondary超过约定时间无法收到心跳，自动升级为elector
-        + elector重新发送propose请求，重新正常选举流程
+- primary节点异常
+    + 当secondary超过约定时间无法收到心跳，自动升级为elector
+    + elector重新发送propose请求，重新正常选举流程
 
 ![Primary Exception](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_storage/imgs/primary_exception.png)
+
+- 节点恢复
+    + primary首先降级为elector，向当前primary节点发送propose请求
+    + 当前primary节点发送deny并发送publish消息
+    + 接收到消息的elector降级为secondary
+
+![Node Recovery](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_storage/imgs/node_recovery.png)
+
+* Paxos协议
+    - 可信赖的分布式协商协议
+    - 关键点
+        + 大多数协商一致（数据一致性保证）
+        + 两阶段协商
+        + 协议号递增并需要持久化（协议正确性前提）
+    - prepare阶段
+        + client向proposer发送修改请求，proposer向accepter发总prepare请求
+        + accepter接收到请求，锁定当前协议号，同时不再接收相同版本号的请求
+    - 协商返回阶段
+        + proposer发送相同协议号的accept请求给accepter，若大多数accepter接受这个请求，则数据已成功修改，通过proposer返回给client端。
+        
+
+
+
+
 
 
 
