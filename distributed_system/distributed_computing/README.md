@@ -161,16 +161,31 @@ f(x+delta) = g(f(x), delta)
         + 数据倾斜严重
 * 并行DAG（重延时，兼顾吞吐）
     - 优点：
-        + 失效性好
+        + 实效性好
         + 对倾斜较为友好
     - 不足：
         + 调度复杂
         + 建模复杂
 
+### 任务调度
 
+* 离线调度
+    - Fuxi
+    - YARN
+* 实时调度
+    - Slider
+    - Gallardo
+    - 离线与在线任务混合（borg）
+    - 长进程 rt sla与CPU利用率
+    - 设置minCPU && maxCPU
+    - priority抢占
+    - Cgroup（CPU资源隔离）
+    - 申请方式/部署方式/拉起方式/包管理（延迟）
+    - 资源约束
+    - 恢复与容错
+        + Batch是容错，任务跟踪，输入输出与控制的最小单位
 
-
-
+![Ali Architecture](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_computing/imgs/ali_architecture.png)
 
 
 
