@@ -187,6 +187,128 @@ f(x+delta) = g(f(x), delta)
 
 ![Ali Architecture](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_computing/imgs/ali_architecture.png)
 
+### 大数据与传统数据库的区别
+
+#### 数据库
+
+* 数据由用户产生
+* schema化
+* 表间强一致性
+* 随机访问
+* 实时性高
+* 机房分散
+* 重延时
+* OLTP:用户买了两个Apple Watch
+
+#### Big Data
+
+* 数据来源由db或log产生
+* ETL/建模
+* 款表
+* 重scan能力
+* 离线
+* 数据计算
+* 机房集中
+* OLAP:Apple Watch的地域分布情况
+* 3V
+    - Volume:数据量，成本
+    - Velocity:
+        + 入口吞吐
+        + 时效性
+    - Variety
+        + 数据源
+        + 格式
+        + 质量
+* 抽象：
+    - 切
+        + 切任务
+    - 选
+        + 资源
+    - 做
+        + 运行下发的任务
+    - 控
+        + 下发
+        + 控制时机
+
+
+### Hive 架构
+
+![Hive Architecture](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_computing/imgs/hive_architecture.png)
+
+### DB Architecture
+
+![DB Architecture](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_computing/imgs/db_architecture.png)
+
+### BigData Architecture
+
+![BigData Architecture](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_computing/imgs/bd_architecture.png)
+
+### 统一计算框架
+
+#### 狭义的内存计算
+
+* 最大限度利用内存容量
+* 可编程
+* 容错
+* Replica/Partition
+
+#### 计算的三要素
+
+* 数据结构
+* 功能
+* 控制逻辑
+* MapReduce
+    - 弱化数据结构
+    - 控制逻辑
+    - 抽象功能
+* 改变
+    - 以数据结构为核心
+    - 血缘
+    - 更多的原语
+    - 开放控制逻辑
+* 计算的维度
+    - A:是否分批
+    - B:Shuffle方式（Push/Pull）
+    - C:是否预拉起
+    - A0:B1:C0 传统离线计算
+    - A0:B0:C1 Service mode Impala
+    - A1:B0:C1 流计算
+
+![Uniform Architecture](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_computing/imgs/uniform_architecture.png)
+
+* Runtime Controller
+    - 可做成lib，用户能够灵活调用
+* Session
+    - Job 复用数据的边界
+* DAGSession
+    - DAG复用
+* BlockSession
+    - Job间复用数据的全局管理
+* VertextManager
+    - 控制逻辑
+* LocalAM
+    - 保持与AM数据结构一致的本地AM
+* 算子：
+    - map
+    - reduce
+    - shuffle
+    - merge
+    - union
+* 难点：
+    - RC的引入
+    - 看到的资源一致
+    - 本地调度
+    - 灵活的表示层
+    - 优化器
+        + 本地化
+    - LocalDataSet
+        + 可读可写（mutable）
+    - DataSet
+        + Version
+        + Partition/Replica
+        + Tag
+        + Match
+
 
 
 
