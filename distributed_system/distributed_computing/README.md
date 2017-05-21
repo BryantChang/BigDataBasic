@@ -72,6 +72,106 @@ f(x+delta) = g(f(x), delta)
 
 ![Storm](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_computing/imgs/storm.png)
 
+* 容错：
+
+```
+数据接收->发送->处理->Acker成功（丢失，重复）
+```
+
+* Transection Topology
+    - 跟踪源头的所有子孙消息（异或）
+    - 限制：
+        + 整个Topology统一时刻只有一个batch正在执行
+    - 优点：
+        + 消息在框架内不落盘
+        + 保证消息至少被处理
+    - 不足：
+        + Transaction Topology对batch串行方式，大幅影响性能
+
+### Kinesis（Amazon）
+
+![Kinesis](https://raw.githubusercontent.com/BryantChang/BigDataBasic/master/distributed_system/distributed_computing/imgs/kinesis.png)
+
+* 每一级消息都落盘
+
+### MillWheel（Google）
+
+* 使用BigTable持久化中间结果
+* 将每个节点的计算进行持久化
+
+
+### 数据收集
+
+* 输入
+    - 拉：
+        + kafka
+        + HBase,HDFS
+    - 推：
+        + 需要实现HTTP处理模块
+* 输出
+    - 业务方订阅：
+        + 结果数据写入消息队列，业务方订阅
+    - 服务
+        + 直接提供在线的数据服务
+
+* Shuffle机制
+    - 下游节点拉
+    - 上游节点推（需要知道子DAG的全部拓扑）
+
+### 计算
+
+* 长进程，不同的调度，不同的消息机制
+* 容错：任务跟踪
+* 有状态的计算：中间状态的存储
+* Batch
+    - 系统跟踪的最小单位
+    - 数据的最小单位
+    - 处理的最小单位
+    - 能够Scale化
+        + 全量计算
+        + 一条数据
+* 消息机制：
+    - 分发->接收->处理
+    - shuffle-服务化
+    - 异常情况
+        + 程序crash
+        + 容错
+        + 网络问题
+    - 消息源头重发：
+        + 无异常情况执行流畅
+        + 出现异常时如果DAG规模较大时恢复时间较长
+    - 节点内部重发
+        + 出现异常时恢复迅速
+        + 每一步都需要落磁盘，影响系统性能
+
+### 增量计算模型
+
+* Map Reduce Merge
+* 有状态的计算
+* 状态处理：
+    - Storm && Kinesis 将状态处理交给用户
+    - MillWheel 使用BigTable持久化中间状态（系统性能受限与外部存储的最大吞吐限制）
+    - 备选方案：存储与计算合一（将小的snapshot写入到内存，或延展到SSD，聚集后刷入持久化存储，存储不会阻塞计算）
+* 串行DAG（重吞吐，兼顾延时）
+    - 优点：
+        + 模型简单
+        + 吞吐高
+    - 缺点：
+        + 时效性差
+        + 数据倾斜严重
+* 并行DAG（重延时，兼顾吞吐）
+    - 优点：
+        + 失效性好
+        + 对倾斜较为友好
+    - 不足：
+        + 调度复杂
+        + 建模复杂
+
+
+
+
+
+
 
 
 
