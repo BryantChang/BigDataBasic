@@ -255,8 +255,45 @@
         + accepter接收到请求，锁定当前协议号，同时不再接收相同版本号的请求
     - 协商返回阶段
         + proposer发送相同协议号的accept请求给accepter，若大多数accepter接受这个请求，则数据已成功修改，通过proposer返回给client端。
-        
 
+### 14、Meta server的线性扩展
+
+* HDFS: Namenode Federation模式
+    - 将目录树进行切分，每个目录树各自独立
+    - 目录数之下共享DataNode
+    - 问题：
+        + 相关的目录会被切分
+        + 节点间的切分不均衡
+
+* Ceph: MDS的动态切分
+    - MDS统计目录树的深度，基于统计做目录树的动态切分
+    - 好处：
+        + 元数据在不同节点的数量相对平均分布
+        + 扩展能力强
+    - 问题：
+        + 实际应用较少
+
+### 15、混合存储
+
+#### 不同存储介质的特征
+
+*   磁盘：
+    -  Capacity:1-4TB
+    -  Latency:10ms
+    -  Throughput:100~200MB/s
+    -  Cost:低
+
+*   SSD：
+    -  Capacity:400~800GB
+    -  Latency:50~75us
+    -  Throughput:400MB/s
+    -  Cost:中
+
+*   内存：
+    -  Capacity:24~128GB
+    -  Latency:100ns
+    -  Throughput:20GB/s
+    -  Cost:高
 
 
 
