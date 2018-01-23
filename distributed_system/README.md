@@ -1,5 +1,6 @@
 # 分布式系统知识总结
 
+* [第零部分：分布式协调](https://github.com/BryantChang/BigDataBasic/tree/master/distributed_system/distributed_coodination)
 * [第一部分：分布式调度](https://github.com/BryantChang/BigDataBasic/tree/master/distributed_system/distributed_scheduler)
 * [第二部分：分布式存储](https://github.com/BryantChang/BigDataBasic/tree/master/distributed_system/distributed_storage)
 * [第三部分：分布式计算](https://github.com/BryantChang/BigDataBasic/tree/master/distributed_system/distributed_computing)
